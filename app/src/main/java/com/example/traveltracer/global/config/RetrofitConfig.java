@@ -1,4 +1,4 @@
-package com.example.traveltracer.login.config;
+package com.example.traveltracer.global.config;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
