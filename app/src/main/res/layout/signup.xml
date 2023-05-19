@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--뒤로가기, 회원가입 글씨-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <!--뒤로가기 글씨-->
+            <TextView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.7"
+                android:layout_marginLeft="10dp"
+                android:text="back"
+                android:textSize="20dp" />
+            <!--회원가입 글씨-->
+            <TextView
+                android:id="@+id/signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="2"
+                android:text="회원 가입"
+                android:textSize="25dp" />
+        </LinearLayout>
+        <!--스크롤 기능-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="30dp"
+                android:orientation="vertical">
+                <!--회원가입시 기입 내용들-->
+                <!--이름 글씨-->
+                <TextView
+                    android:id="@+id/signNametext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="이름"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <!--이름 입력 칸-->
+                <EditText
+                    android:id="@+id/signName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="10"
+                    android:hint=" 이름"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+                <!--아이디 글씨-->
+                <TextView
+                    android:id="@+id/signIDtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="아이디"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <!--아이디 입력 칸-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/signID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="20dp"
+                        android:ems="10"
+                        android:hint=" 아이디"
+                        android:inputType="textPersonName"
+                        android:text="" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/idcheckbutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="중복확인"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!--비밀번호-->
+                <TextView
+                    android:id="@+id/signPWtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="비밀번호"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <!--비밀번호 입력 칸-->
+                <EditText
+                    android:id="@+id/signPW"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="10"
+                    android:hint=" 비밀번호"
+                    android:inputType="textPassword"
+                    android:text="" />
+                <!--비밀번호 재확인-->
+                <TextView
+                    android:id="@+id/signPW2text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="비밀번호 확인"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <!--비밀번호 구역-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <!--비밀번호 재입력 칸-->
+                    <EditText
+                        android:id="@+id/signPW2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="20dp"
+                        android:ems="10"
+                        android:hint=" 비밀번호 재입력"
+                        android:inputType="textPassword"
+                        android:text="" />
+                    <!--확인 버튼-->
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/pwcheckbutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="확인"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!--나이-->
+                <TextView
+                    android:id="@+id/signAgetext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="나이"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <!--나이입력 칸-->
+                <EditText
+                    android:id="@+id/signAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="10"
+                    android:hint=" 나이(숫자만 기입)"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+                <!--이메일 글씨-->
+                <!--이메일 칸-->
+
+                <!--회원가입 완료 버튼-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/signupbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="회원가입"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
