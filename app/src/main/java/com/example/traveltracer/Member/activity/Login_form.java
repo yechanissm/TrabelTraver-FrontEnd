@@ -19,6 +19,9 @@ import com.example.traveltracer.Member.Response.CommonResponse;
 import com.example.traveltracer.Member.Service.MemberService;
 import com.example.traveltracer.R;
 import com.example.traveltracer.global.config.RetrofitConfig;
+import com.google.gson.JsonObject;
+
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,26 +84,29 @@ public class Login_form extends AppCompatActivity {
                 }
                 //만약 빈칸이 없이 제대로 동작하는 거라면.
                 else{
-                    service.login(new LoginData(userId, userPassword)).enqueue(new Callback<CommonResponse>() {
+                    HashMap<String, String> userInfo = new HashMap<>();
+                    userInfo.put("userId", userId);
+                    userInfo.put("userPassword", userPassword);
+                    JsonObject jsonObject = new JsonObject();
+
+                    service.login(userInfo).enqueue(new Callback<LoginData>() {
 
                         @Override
-                        public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
-                            Log.v("실행", "로그인버");
-                            Log.d("실행", userId);
-                            Log.d("실행", userPassword);
+                        public void onResponse(Call<LoginData> call, Response<LoginData> response) {
 
-                            CommonResponse commonResponse = response.body();
-                            if(commonResponse.getMessage().equals("실패")) {
+                            LoginData body = response.body();
+                            if(body.getMessage().equals("실패")) {
                                 Toast.makeText(Login_form.this, "아이디 혹은 비밀번호가 일치하지 않습니다." , Toast.LENGTH_SHORT).show();
+
                             }
                             else {
-                                Intent intent = new Intent(Login_form.this, MainActivity.class);
+                                Intent intent = new Intent(Login_form.this, Main.class);
                                 startActivity(intent);
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<CommonResponse> call, Throwable t) {
+                        public void onFailure(Call<LoginData> call, Throwable t) {
                             String message = t.getMessage();
                             Toast.makeText(Login_form.this,message , Toast.LENGTH_SHORT).show();
                             Log.e("회원가입 에러 발생", t.getMessage());

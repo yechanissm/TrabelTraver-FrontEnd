@@ -11,8 +11,15 @@ public class LoginData {
     @SerializedName("userPassword")
     private String userPassword;
 
+    @SerializedName("message")
+    private String message;
+
     public LoginData() {
 
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public LoginData(String userId, String userPassword) {
