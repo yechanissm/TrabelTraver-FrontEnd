@@ -1,5 +1,6 @@
 package com.example.traveltracer.Member.Data;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 public class SignUpdata {
@@ -24,5 +25,7 @@ public class SignUpdata {
         this.userName = userName;
         this.age = age;
     }
+
+
 
 }

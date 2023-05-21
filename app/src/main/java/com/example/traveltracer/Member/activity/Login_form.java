@@ -16,10 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.traveltracer.MainActivity;
 import com.example.traveltracer.Member.Data.LoginData;
 import com.example.traveltracer.Member.Response.CommonResponse;
+import com.example.traveltracer.Member.Response.LoginResponse;
 import com.example.traveltracer.Member.Service.MemberService;
 import com.example.traveltracer.R;
 import com.example.traveltracer.global.config.RetrofitConfig;
 import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -33,6 +37,7 @@ public class Login_form extends AppCompatActivity {
     Button login;
     EditText userIdView,userPasswordView;
     private MemberService service;
+    
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,7 +49,6 @@ public class Login_form extends AppCompatActivity {
         userPasswordView = findViewById(R.id.editPassword);
 
         service = RetrofitConfig.getClient().create(MemberService.class);
-
         //회원가입 버튼
         sign = findViewById(R.id.signin);
         sign = findViewById(R.id.signin);
@@ -84,29 +88,23 @@ public class Login_form extends AppCompatActivity {
                 }
                 //만약 빈칸이 없이 제대로 동작하는 거라면.
                 else{
-                    HashMap<String, String> userInfo = new HashMap<>();
-                    userInfo.put("userId", userId);
-                    userInfo.put("userPassword", userPassword);
-                    JsonObject jsonObject = new JsonObject();
-
-                    service.login(userInfo).enqueue(new Callback<LoginData>() {
-
+                    service.login(new LoginData(userId, userPassword)).enqueue(new Callback<LoginResponse>() {
                         @Override
-                        public void onResponse(Call<LoginData> call, Response<LoginData> response) {
+                        public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                            LoginData body = response.body();
-                            if(body.getMessage().equals("실패")) {
-                                Toast.makeText(Login_form.this, "아이디 혹은 비밀번호가 일치하지 않습니다." , Toast.LENGTH_SHORT).show();
-
-                            }
-                            else {
+                            LoginResponse body = response.body();
+                            Toast.makeText(Login_form.this, body.getMessage(), Toast.LENGTH_SHORT);
+                            if(body.getMessage().equals("성공")) {
                                 Intent intent = new Intent(Login_form.this, Main.class);
                                 startActivity(intent);
+                            }
+                            else {
+                                Toast.makeText(Login_form.this, "아이디 혹은 비밀번호가 일치하지 않습니다." , Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<LoginData> call, Throwable t) {
+                        public void onFailure(Call<LoginResponse> call, Throwable t) {
                             String message = t.getMessage();
                             Toast.makeText(Login_form.this,message , Toast.LENGTH_SHORT).show();
                             Log.e("회원가입 에러 발생", t.getMessage());

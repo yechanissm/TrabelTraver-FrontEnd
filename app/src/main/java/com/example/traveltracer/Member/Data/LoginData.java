@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginData {
 
+
     @SerializedName("userId")
     private String userId;
 
@@ -14,12 +15,12 @@ public class LoginData {
     @SerializedName("message")
     private String message;
 
-    public LoginData() {
-
-    }
-
     public String getMessage() {
         return message;
+    }
+
+    public LoginData() {
+
     }
 
     public LoginData(String userId, String userPassword) {
