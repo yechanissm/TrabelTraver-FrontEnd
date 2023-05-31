@@ -45,26 +45,6 @@
                 android:layout_marginRight="30dp"
                 android:orientation="vertical">
                 <!--회원가입시 기입 내용들-->
-                <!--이름 글씨-->
-                <TextView
-                    android:id="@+id/signNametext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="이름"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-                <!--이름 입력 칸-->
-                <EditText
-                    android:id="@+id/signName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginBottom="20dp"
-                    android:ems="10"
-                    android:hint=" 이름"
-                    android:inputType="textPersonName"
-                    android:text="" />
-
                 <!--아이디 글씨-->
                 <TextView
                     android:id="@+id/signIDtext"
@@ -122,6 +102,7 @@
                     android:hint=" 비밀번호"
                     android:inputType="textPassword"
                     android:text="" />
+
                 <!--비밀번호 재확인-->
                 <TextView
                     android:id="@+id/signPW2text"
@@ -158,6 +139,47 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+                <!--이름 글씨-->
+                <TextView
+                    android:id="@+id/signNametext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="이름"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <!--이름 입력 칸-->
+
+                <EditText
+                    android:id="@+id/signName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="10"
+                    android:hint=" 이름"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+                <!--이메일 글씨-->
+                <TextView
+                    android:id="@+id/signMailtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="이메일"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <!--이메일 입력 칸-->
+                <EditText
+                    android:id="@+id/signEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="10"
+                    android:hint=" 이메일"
+                    android:inputType="textEmailAddress"
+                    android:text="" />
+
                 <!--나이-->
                 <TextView
                     android:id="@+id/signAgetext"
@@ -178,9 +200,6 @@
                     android:hint=" 나이(숫자만 기입)"
                     android:inputType="textPersonName"
                     android:text="" />
-
-                <!--이메일 글씨-->
-                <!--이메일 칸-->
 
                 <!--회원가입 완료 버튼-->
                 <androidx.appcompat.widget.AppCompatButton
