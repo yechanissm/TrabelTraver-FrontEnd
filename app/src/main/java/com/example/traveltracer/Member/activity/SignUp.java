@@ -26,7 +26,7 @@ public class SignUp extends AppCompatActivity {
 
     TextView back;
 
-    EditText userNameView,userIdView,userPasswordView,userPassword2View,ageView;
+    EditText userNameView,userIdView,userPasswordView,userPassword2View,ageView,userEmail;
     Button idcheck, pwcheck, submit;
     private MemberService service;
 
@@ -48,7 +48,7 @@ public class SignUp extends AppCompatActivity {
         userPasswordView = findViewById(R.id.signPW);
         userPassword2View = findViewById(R.id.signPW2);
         ageView = findViewById(R.id.signAge);
-
+        userEmail = findViewById(R.id.signEmail);
         service = RetrofitConfig.getClient().create(MemberService.class);
 
         //아이디 중복확인 버튼

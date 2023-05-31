@@ -33,7 +33,7 @@ import retrofit2.Response;
 
 public class Login_form extends AppCompatActivity {
 
-    TextView sign;
+    TextView sign,changeId,changePw;
     Button login;
     EditText userIdView,userPasswordView;
     private MemberService service;
@@ -47,8 +47,23 @@ public class Login_form extends AppCompatActivity {
 
         userIdView = findViewById(R.id.editID);
         userPasswordView = findViewById(R.id.editPassword);
-
         service = RetrofitConfig.getClient().create(MemberService.class);
+
+        // 아이디 찾기 버튼 및 클릭 시 아이디 찾기 페이지로 이동
+        changeId = findViewById(R.id.changeId);
+        changeId.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Id_Find.class);
+            startActivity(intent);
+        });
+
+        // 비밀번호 찾기 버튼 및 클릭 시 비밀번호 찾기 페이지로 이동
+        changePw = findViewById(R.id.changePw);
+        changePw.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Pw_Find.class);
+            startActivity(intent);
+        });
+
+
         //회원가입 버튼
         sign = findViewById(R.id.signin);
         sign = findViewById(R.id.signin);
