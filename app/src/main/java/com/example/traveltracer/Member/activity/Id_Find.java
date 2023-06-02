@@ -98,24 +98,24 @@ public class Id_Find extends AppCompatActivity {
     public void showDialog(FindIdData findIdData){
 
         service.findId(findIdData).enqueue(new Callback<CommonResponse>() {
-            AlertDialog.Builder iddialog = new AlertDialog.Builder(Id_Find.this);
+            AlertDialog.Builder idDialog = new AlertDialog.Builder(Id_Find.this);
 
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                 CommonResponse body = response.body();
                 if(body.getMessage().equals("실패")) {
-                    iddialog.setTitle("아이디 찾기 결과");
-                    iddialog.setMessage("존재하지 않는 회원입니다");
-                    iddialog.setIcon(R.drawable.ic_launcher_background);
+                    idDialog.setTitle("아이디 찾기 결과");
+                    idDialog.setMessage("존재하지 않는 회원입니다");
+                    idDialog.setIcon(R.drawable.ic_launcher_background);
 
                 }
                 else {
-                    iddialog.setTitle("아이디 찾기 결과");
-                    iddialog.setMessage("회원님의 아이디는 " + body.getMessage() + "입니다.");
-                    iddialog.setIcon(R.drawable.ic_launcher_background);
+                    idDialog.setTitle("아이디 찾기 결과");
+                    idDialog.setMessage("회원님의 아이디는 " + body.getMessage() + "입니다.");
+                    idDialog.setIcon(R.drawable.ic_launcher_background);
                 }
                 // 확인 버튼
-                iddialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                idDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(Id_Find.this,"확인을 누르셨습니다.",Toast.LENGTH_SHORT).show();
@@ -123,13 +123,13 @@ public class Id_Find extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                iddialog.show();
+                idDialog.show();
             }
 
             @Override
             public void onFailure(Call<CommonResponse> call, Throwable t) {
                 String message = t.getMessage();
-                System.out.println(message);
+                Log.v("err", message);
                 Toast.makeText(Id_Find.this, message, Toast.LENGTH_SHORT).show();
                 Log.e("아이디 찾기 에러 발생", t.getMessage());
             }

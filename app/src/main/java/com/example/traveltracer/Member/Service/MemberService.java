@@ -1,6 +1,7 @@
 package com.example.traveltracer.Member.Service;
 
 import com.example.traveltracer.Member.Data.FindIdData;
+import com.example.traveltracer.Member.Data.FindPwData;
 import com.example.traveltracer.Member.Data.LoginData;
 import com.example.traveltracer.Member.Data.SignUpdata;
 import com.example.traveltracer.Member.Response.CommonResponse;
@@ -32,4 +33,7 @@ public interface MemberService {
 
     @POST("/findId")
     Call<CommonResponse> findId(@Body FindIdData findIdData);
+
+    @POST("/findPw")
+    Call<CommonResponse> findPw(@Body FindPwData findPwData);
 }
