@@ -82,7 +82,6 @@ public class Login_form extends AppCompatActivity {
                 userIdView.setError(null);
                 userPasswordView.setError(null);
 
-
                 String userId = userIdView.getText().toString();
                 String userPassword = userPasswordView.getText().toString();
 

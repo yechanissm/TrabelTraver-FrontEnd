@@ -16,13 +16,17 @@ public class SignUpdata {
     @SerializedName("age")
     private Integer age;
 
+    @SerializedName("userEmail")
+    private String userEmail;
+
     public SignUpdata() {
     }
 
-    public SignUpdata(String userId, String userPassword, String userName, Integer age) {
+    public SignUpdata(String userId, String userPassword, String userName,String userEmail, Integer age) {
         this.userId = userId;
         this.userPassword = userPassword;
         this.userName = userName;
+        this.userEmail = userEmail;
         this.age = age;
     }
 
