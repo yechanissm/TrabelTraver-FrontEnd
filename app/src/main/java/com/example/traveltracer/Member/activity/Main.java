@@ -21,18 +21,192 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.traveltracer.MainActivity;
+import com.example.traveltracer.Member.map.LocationUtils;
+import com.example.traveltracer.Member.map.MarkerUtils;
+import com.example.traveltracer.Member.map.locationData;
 import com.example.traveltracer.R;
 import com.google.android.material.navigation.NavigationView;
 
-public class Main extends AppCompatActivity {
+//지도 부분 import
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+public class Main extends AppCompatActivity implements OnMapReadyCallback {
 
     Dialog logoutdialog; // 커스텀 다이얼 로그
+
+    // 지도 연동
+    public GoogleMap map;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
+    public static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
+    private LocationUtils locationUtils;
+    private MarkerUtils markerUtils;
+
+    private com.example.traveltracer.Member.map.locationData locationData;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        //지도를 화면에 표시하는 부분
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        locationRequest = getLocationRequest();
+        locationCallback = getLocationCallback();
+        locationData = new locationData();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.lab1_map);
+        mapFragment.getMapAsync(this);
+
         this.InitializeLayout();
+
+        // 지도 버튼 활성화
+        setButton1();
+        setButton2();
+
+        locationUtils = new LocationUtils(this);
+        markerUtils = new MarkerUtils(map);
+
     }
+    //위도 경도 표시 버튼
+    private void setButton1() {
+        Button button1 = findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getCurrentLocation();
+            }
+        });
+    }
+    // 현재위치 표시 버튼
+    private void setButton2() {
+        Button button2 = findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkLocationPermission()) {
+                    fusedLocationProviderClient.getLastLocation()
+                            .addOnSuccessListener(new OnSuccessListener<Location>() {
+                                @Override
+                                public void onSuccess(Location location) {
+                                    if (location != null) {
+                                        nowCurrentLocation(location);
+                                    }
+                                }
+                            });
+                }
+            }
+        });
+    }
+
+    // 지도 위치 요청
+    private LocationRequest getLocationRequest() {
+        LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(1000);
+        locationRequest.setFastestInterval(500);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        return locationRequest;
+    }
+
+    // 지도 호출 부분 구글 맵을 객체로 받아 실행
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        if (checkLocationPermission()) {
+            locationUtils.requestLocationUpdates(locationRequest, locationCallback);
+        }
+    }
+    // 현재 위치 정보 가져 오는 부분 (1번 버튼 눌렀을 때)
+    private void getCurrentLocation() {
+        if (checkLocationPermission()) {
+            fusedLocationProviderClient.getLastLocation()
+                    .addOnSuccessListener(new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+
+                            if (location != null) {
+                                double longitude = location.getLongitude();
+                                double latitude = location.getLatitude();
+                                locationData.setnewLongitude(longitude);
+                                locationData.setnewLatitude(latitude);
+                                Toast.makeText(Main.this, "현재 위치: 위도 " + locationData.getnewLatitude() + ", 경도 " + locationData.getnewLongitude(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+        }
+    }
+
+    private void nowCurrentLocation(Location location) {
+        locationUtils.CurrentLocationMove(location);
+    }
+
+    private boolean checkLocationPermission() {
+        return locationUtils.checkLocationPermission();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locationUtils.requestLocationUpdates(locationRequest, locationCallback);
+            } else {
+                Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        locationUtils.stopLocationUpdates(locationCallback);
+    }
+
+    private LocationCallback getLocationCallback() {
+        return new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    if (location != null) {
+                        locationUtils.displayCurrentLocation(location);
+                    }
+                }
+            }
+        };
+    }
+
     public void InitializeLayout() {
         //toolBar를 통해 App Bar 생성
         Toolbar toolbar = findViewById(R.id.toolbar);
