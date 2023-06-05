@@ -26,7 +26,7 @@ public class SignUp extends AppCompatActivity {
 
     TextView back;
 
-    EditText userNameView,userIdView,userPasswordView,userPassword2View,ageView,userEmail;
+    EditText userNameView,userIdView,userPasswordView,userPassword2View,ageView,userEmailView;
     Button idcheck, pwcheck, submit;
     private MemberService service;
 
@@ -48,7 +48,7 @@ public class SignUp extends AppCompatActivity {
         userPasswordView = findViewById(R.id.signPW);
         userPassword2View = findViewById(R.id.signPW2);
         ageView = findViewById(R.id.signAge);
-        userEmail = findViewById(R.id.signEmail);
+        userEmailView = findViewById(R.id.signEmail);
         service = RetrofitConfig.getClient().create(MemberService.class);
 
         //아이디 중복확인 버튼
@@ -90,6 +90,7 @@ public class SignUp extends AppCompatActivity {
             String userId = userIdView.getText().toString();
             String userPassword = userPasswordView.getText().toString();
             String userName = userNameView.getText().toString();
+            String userEmail = userEmailView.getText().toString();
             String age= ageView.getText().toString();
 
             boolean cancel =false;
@@ -114,11 +115,22 @@ public class SignUp extends AppCompatActivity {
                 focusView = userNameView;
                 cancel = true;
             }
+            if (userName.isEmpty()) {
+                userNameView.setError("이름을 입력해주세요.");
+                focusView = userNameView;
+                cancel = true;
+            }
+
+            if (userEmail.isEmpty()) {
+                userEmailView.setError("이메일을 입력해주세요.");
+                focusView = userEmailView;
+                cancel = true;
+            }
 
             if (cancel) {
                 focusView.requestFocus();
             } else {
-                startJoin(new SignUpdata(userId, userPassword, userName, Integer.parseInt(age)));
+                startJoin(new SignUpdata(userId, userPassword, userName,userEmail, Integer.parseInt(age)));
             }
         }
 
