@@ -34,6 +34,9 @@
             android:exported="false" />
 
         <meta-data
+            android:name="com.googel.android.maps.v2.API_KEY"
+            android:value="AIzaSyBZDepCxR87WA_PB7yXr-CKFBjbK52TDhQ" />
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBZDepCxR87WA_PB7yXr-CKFBjbK52TDhQ" />
         <meta-data
