@@ -16,7 +16,6 @@ import com.example.traveltracer.R;
 public class Post_Main extends AppCompatActivity {
 
     TextView back;
-    SearchView searchView;
     Spinner arrange, category;
     ListView postlist;
     Button createpost, droppost;

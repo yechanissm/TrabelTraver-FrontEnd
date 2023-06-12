@@ -31,6 +31,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- 주소 글씨-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="주소"/>
+        <!--상세 주소 입력-->
+        <fragment
+            android:id="@+id/autocomplete_fragment"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <!--카테고리 콤보 박스-->
         <Spinner
@@ -41,49 +61,18 @@
             android:layout_marginRight="10dp">
         </Spinner>
 
-        <!--상세 주소 입력-->
-        <EditText
-            android:id="@+id/postwrite_address"
-            android:padding="16dp"
-            android:background="#eeeeee"
-            android:layout_width="match_parent"
+        <!--사진추가 버튼-->
+        <Button
+            android:id="@+id/postwriteimg_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="상세 주소를 입력하세요." />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="사진추가"
+            android:layout_weight="1" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <!--사진 넣는 칸 1번-->
-        <ImageView
-            android:id="@+id/postwrite_image1"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:padding="5dp"
-            android:src="@drawable/image"/>
-        <!--사진 넣는 칸 2번-->
-        <ImageView
-            android:id="@+id/postwrite_image2"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:padding="5dp"
-            android:src="@drawable/image"/>
-        <!--사진 넣는 칸 3번-->
-        <ImageView
-            android:id="@+id/postwrite_image3"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:padding="5dp"
-            android:src="@drawable/image"/>
-    </LinearLayout>
+
 
     <!--내용입력-->
     <TextView
