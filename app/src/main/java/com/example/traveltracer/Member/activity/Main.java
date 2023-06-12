@@ -157,7 +157,14 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
                 if (itemId == R.id.menuItem1) {
                     Toast.makeText(getApplicationContext(), "친구 목록 이동", Toast.LENGTH_SHORT).show();
                 } else if (itemId == R.id.menuItem2) {
-                    Toast.makeText(getApplicationContext(), "게시물 목록 이동", Toast.LENGTH_SHORT).show();
+                    // 클릭 시 게시물 창으로 이동
+                    findViewById(R.id.menuItem2).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Main.this,Post_Main.class);
+                            startActivity(intent);
+                        }
+                    });
                 } else if (itemId == R.id.menuItem3) {
                     Toast.makeText(getApplicationContext(), "환경설정 이동", Toast.LENGTH_SHORT).show();
                 } else if (itemId == R.id.menuItem4) {

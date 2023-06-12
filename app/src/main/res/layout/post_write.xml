@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical"
+    tools:context=".Member.activity.Post_Write">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- 제목 글씨-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="제목"/>
+        <!-- 제목 입력 창-->
+        <EditText
+            android:id="@+id/postwrite_title"
+            android:padding="16dp"
+            android:background="#eeeeee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="제목을 입력하세요." />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--카테고리 콤보 박스-->
+        <Spinner
+            android:id="@+id/postwrite_category"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="10dp">
+        </Spinner>
+
+        <!--상세 주소 입력-->
+        <EditText
+            android:id="@+id/postwrite_address"
+            android:padding="16dp"
+            android:background="#eeeeee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="상세 주소를 입력하세요." />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!--사진 넣는 칸 1번-->
+        <ImageView
+            android:id="@+id/postwrite_image1"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:padding="5dp"
+            android:src="@drawable/image"/>
+        <!--사진 넣는 칸 2번-->
+        <ImageView
+            android:id="@+id/postwrite_image2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:padding="5dp"
+            android:src="@drawable/image"/>
+        <!--사진 넣는 칸 3번-->
+        <ImageView
+            android:id="@+id/postwrite_image3"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:padding="5dp"
+            android:src="@drawable/image"/>
+    </LinearLayout>
+
+    <!--내용입력-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="내용"/>
+
+    <!--내용 입력 칸-->
+    <EditText
+        android:id="@+id/content_et"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#eeeeee"
+        android:hint="내용을 입력하세요."
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <!--취소하기 버튼-->
+        <Button
+            android:id="@+id/postwritebcak_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="취소" />
+        <!--등록하기 버튼-->
+        <Button
+            android:id="@+id/postwritereg_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="등록하기" />
+    </LinearLayout>
+
+</LinearLayout>
