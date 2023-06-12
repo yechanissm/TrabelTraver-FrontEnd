@@ -25,8 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="60dp"
-            tools:ignore="MissingClass" />
-
+             />
+<!-- 혹시 몰라서 일단 남겨둠
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 android:text="아아아몰라아아앙" />
 
         </LinearLayout>
-
+-->
     </RelativeLayout>
 
     <!-- 사이드바 추가 -->

@@ -26,7 +26,6 @@ public class locationData {
     }
 
     public double getnewLongitude() {
-
         return newlongitude;
     }
     public void setlastLatitude(double latitude) {

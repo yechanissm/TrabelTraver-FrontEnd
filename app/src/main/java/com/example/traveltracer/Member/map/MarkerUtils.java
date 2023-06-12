@@ -1,12 +1,18 @@
 package com.example.traveltracer.Member.map;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Map;
 
 public class MarkerUtils {
     private locationData locationData;
     private GoogleMap map;
+
+    private Marker CheckpointMarker;
 
     public MarkerUtils(GoogleMap map) {
         this.map = map;
@@ -40,5 +46,16 @@ public class MarkerUtils {
 
 
     }
- */
+    private void createCheckpoint() {
+        // 체크포인트 생성 코드 작성
+        // 위치 정보와 시간 정보를 저장하여 체크포인트 생성
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(latLng)
+                .title("Checkpoint")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        CheckpointMarker = Map.addMarker(markerOptions);
+
+        return Map.addMarker(markerOptions);
+    }
+*/
 }
