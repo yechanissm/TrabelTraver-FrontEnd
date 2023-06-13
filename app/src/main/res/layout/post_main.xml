@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".Member.activity.Post_Main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- 뒤로가기 글씨-->
+        <TextView
+            android:id="@+id/postback"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:text="back"
+            android:textSize="20dp" />
+        <!--검색 바 -->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:focusable="true"
+            android:padding="20dp"
+            app:iconifiedByDefault="false"
+            app:queryHint="검색어를 입력하세오" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <!--정렬 콤보 박스-->
+        <Spinner
+            android:id="@+id/arrange_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:spinnerMode="dropdown"
+            android:layout_marginRight="40dp">
+        </Spinner>
+        <!--카테고리 콤보박스-->
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:spinnerMode="dropdown"
+            android:layout_marginLeft="40dp">
+        </Spinner>
+    </LinearLayout>
+    <!--게시물 리스트 -->
+    <ListView
+        android:id="@+id/post_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <!--작성하기 버튼-->
+        <Button
+            android:id="@+id/createpost_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginRight="20dp"
+            android:text="게시물 작성하기" />
+        <!--삭제하기 버튼-->
+        <Button
+            android:id="@+id/droppost_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginLeft="20dp"
+            android:text="게시물 삭제하기" />
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
