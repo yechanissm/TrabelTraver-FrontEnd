@@ -52,34 +52,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <!--내용 글씨-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="내용"/>
+
+        <!--카테고리 글씨-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="카테고리"/>
+
         <!--카테고리 콤보 박스-->
         <Spinner
             android:id="@+id/postwrite_category"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginRight="10dp">
+            android:layout_marginRight="10dp"
+            android:spinnerMode="dropdown"
+            android:layout_weight="1">
         </Spinner>
 
-        <!--사진추가 버튼-->
-        <Button
-            android:id="@+id/postwriteimg_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="사진추가"
-            android:layout_weight="1" />
     </LinearLayout>
-
-
-
-    <!--내용입력-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="내용"/>
 
     <!--내용 입력 칸-->
     <EditText
@@ -92,14 +93,23 @@
         android:hint="내용을 입력하세요."
         />
 
+    <!--사진추가 버튼-->
+    <Button
+        android:id="@+id/postwriteimg_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="사진추가"
+         />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:orientation="horizontal">
         <!--취소하기 버튼-->
         <Button
-            android:id="@+id/postwritebcak_button"
+            android:id="@+id/postwritecancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"

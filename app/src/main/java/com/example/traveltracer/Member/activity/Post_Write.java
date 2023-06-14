@@ -9,7 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 
 import com.example.traveltracer.R;
@@ -37,16 +40,34 @@ import java.util.List;
 
 
 public class Post_Write extends AppCompatActivity {
+
     private static LatLng Input_LatLng = null;
     private static int AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final String TAG = "FinalTest";
 
+    Button cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_write);
 
+        // 취소 버튼 클릭 시 뒤로 가기
+        cancel = findViewById(R.id.postwritecancel_button);
+        cancel.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Post_Main.class);
+            startActivity(intent);
+        });
+
+        // 카테고리 콤보 박스(spinner) 부분
+        Spinner spinner = (Spinner) findViewById(R.id.postwrite_category);
+        // 어댑터 생성 및 array 레이아웃 가져오기
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.post_category, android.R.layout.simple_spinner_dropdown_item);
+        // 스피너 어댑터 적용
+        spinner.setAdapter(adapter);
+
+/*-------------------- 주소 자동입력 부분 --------------------*/
         // 주소 검색 자동 완성 부분
         Places.initialize(getApplicationContext(), "AIzaSyBZDepCxR87WA_PB7yXr-CKFBjbK52TDhQ");
         PlacesClient placesClient = Places.createClient(this);
