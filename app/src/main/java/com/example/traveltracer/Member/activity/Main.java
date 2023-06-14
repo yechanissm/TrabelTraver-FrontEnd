@@ -1,7 +1,6 @@
 package com.example.traveltracer.Member.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 
@@ -22,50 +19,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.traveltracer.MainActivity;
-import com.example.traveltracer.Member.map.LocationUtils;
-import com.example.traveltracer.Member.map.MarkerUtils;
-import com.example.traveltracer.Member.map.locationData;
+import com.example.traveltracer.Member.map.CheckpointManager;
 import com.example.traveltracer.R;
 import com.google.android.material.navigation.NavigationView;
 
 //지도 부분 import
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 public class Main extends AppCompatActivity implements OnMapReadyCallback {
 
     Dialog logoutdialog; // 커스텀 다이얼 로그
 
     // 지도 연동
-    public GoogleMap map;
+    private GoogleMap map;
 
-    public static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
+    public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    //위치 값 받을 떄 사용되는 객체
+    private LocationCallback locationCallback;
 
+    private CheckpointManager checkpointManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,10 +70,13 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             // 권한이 부여되었으므로 My Location 레이어를 활성화합니다
             enableMyLocation();
+            checkpointManager = new CheckpointManager(getApplicationContext(), map);
+            checkpointManager.setupCheckpoint();
         } else {
             // 권한이 부여되지 않았으므로 요청합니다
             ActivityCompat.requestPermissions(this,
@@ -121,6 +105,10 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
                 Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
             }
         }
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 
 
 /*
