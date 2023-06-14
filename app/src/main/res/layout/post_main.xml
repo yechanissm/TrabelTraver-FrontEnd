@@ -20,16 +20,38 @@
             android:gravity="center"
             android:text="back"
             android:textSize="20dp" />
-        <!--검색 바 -->
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search"
+        <!--제목 검색 바 -->
+        <SearchView
+            android:id="@+id/search_title"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:focusable="true"
             android:padding="20dp"
-            app:iconifiedByDefault="false"
-            app:queryHint="검색어를 입력하세오" />
+            android:layout_weight="1"
+            android:iconifiedByDefault="false"
+            android:queryHint="제목을 입력하세요."/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- 뒤로가기 글씨-->
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:textSize="20dp" />
+        <!--제목 검색 바 -->
+        <SearchView
+            android:id="@+id/search_content"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:focusable="true"
+            android:padding="20dp"
+            android:layout_weight="1"
+            android:iconifiedByDefault="false"
+            android:queryHint="내용을 입력하세요."/>
     </LinearLayout>
 
     <LinearLayout
@@ -44,7 +66,7 @@
             android:layout_height="48dp"
             android:layout_centerHorizontal="true"
             android:spinnerMode="dropdown"
-            android:layout_marginRight="40dp">
+            android:layout_weight="1">
         </Spinner>
         <!--카테고리 콤보박스-->
         <Spinner
@@ -52,8 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_centerHorizontal="true"
-            android:spinnerMode="dropdown"
-            android:layout_marginLeft="40dp">
+            android:layout_weight="1">
         </Spinner>
     </LinearLayout>
     <!--게시물 리스트 -->
