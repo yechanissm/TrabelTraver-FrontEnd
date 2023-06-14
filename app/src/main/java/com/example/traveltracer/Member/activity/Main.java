@@ -45,7 +45,6 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     //위치 값 받을 떄 사용되는 객체
     private LocationCallback locationCallback;
-
     private CheckpointManager checkpointManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +55,6 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
 
         this.InitializeLayout();
-
     }
     /*
 
@@ -65,6 +63,7 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
     */
 
 
+    // 지도 호출 부분 구글 맵을 객체로 받아 실행
     // 지도 호출 부분 구글 맵을 객체로 받아 실행
     @SuppressLint("MissingPermission")
     @Override
@@ -75,7 +74,9 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
                 == PackageManager.PERMISSION_GRANTED) {
             // 권한이 부여되었으므로 My Location 레이어를 활성화합니다
             enableMyLocation();
-            checkpointManager = new CheckpointManager(getApplicationContext(), map);
+            // CheckpointManager 인스턴스 생성
+            checkpointManager = new CheckpointManager(this, map);
+            // setupCheckpoint() 메서드 호출
             checkpointManager.setupCheckpoint();
         } else {
             // 권한이 부여되지 않았으므로 요청합니다
@@ -84,6 +85,7 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
+
 
     //my location 레이어 활성화하는 부분
     private void enableMyLocation() {
