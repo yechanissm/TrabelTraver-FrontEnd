@@ -1,4 +1,4 @@
-package com.example.traveltracer.Member.activity;
+package com.example.traveltracer.Post.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

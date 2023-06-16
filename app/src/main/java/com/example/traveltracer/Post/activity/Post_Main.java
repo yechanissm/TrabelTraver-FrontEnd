@@ -1,30 +1,17 @@
-package com.example.traveltracer.Member.activity;
+package com.example.traveltracer.Post.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ListActivity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.traveltracer.Member.activity.Main;
 import com.example.traveltracer.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-import retrofit2.http.GET;
-import retrofit2.http.Tag;
 
 public class Post_Main extends AppCompatActivity {
 

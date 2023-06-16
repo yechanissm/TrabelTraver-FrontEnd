@@ -19,7 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.traveltracer.Member.map.CheckpointManager;
+import com.example.traveltracer.Location.Map.CheckpointManager;
+import com.example.traveltracer.Post.activity.Post_Main;
 import com.example.traveltracer.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -151,7 +152,7 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
                     findViewById(R.id.menuItem2).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(Main.this,Post_Main.class);
+                            Intent intent = new Intent(Main.this, Post_Main.class);
                             startActivity(intent);
                         }
                     });

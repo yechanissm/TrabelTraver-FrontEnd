@@ -1,4 +1,4 @@
-package com.example.traveltracer.Member.map;
+package com.example.traveltracer.Location.Utils;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;

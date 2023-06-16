@@ -1,4 +1,4 @@
-package com.example.traveltracer.Member.map;
+package com.example.traveltracer.Location.Map;
 
 import android.content.Context;
 import android.location.Location;
@@ -10,7 +10,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
