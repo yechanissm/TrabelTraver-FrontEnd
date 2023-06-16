@@ -134,7 +134,7 @@ public class CheckpointManager {
 
         List<Location> locationsToRemove = new ArrayList<>();
 
-        // 이전 위치들을 검사하여 머무른 위치에 마커가 생성되었는지 확인
+        // 이전 위치들 검사하여 머무른 위치에 마커가 생성되었는지 확인
         for (Map.Entry<Location, Long> entry : markerCreationTimes.entrySet()) {
             Location previousLocation = entry.getKey();
             long previousMarkerCreationTime = entry.getValue();
