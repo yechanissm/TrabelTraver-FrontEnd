@@ -1,4 +1,4 @@
-package com.example.traveltracer.Member.map;
+package com.example.traveltracer.Location.Data;
 
 import android.location.Location;
 

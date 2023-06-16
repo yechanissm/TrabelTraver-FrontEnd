@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     android:orientation="vertical"
-    tools:context=".Member.activity.Post_Write">
+    tools:context=".Post.activity.Post_Write">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context=".Member.activity.Post_Detail">
+    tools:context=".Post.activity.Post_Detail">
 
     <!--스크롤 기능-->
     <ScrollView

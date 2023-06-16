@@ -1,4 +1,4 @@
-package com.example.traveltracer.Member.map;
+package com.example.traveltracer.Location.Utils;
 
 import android.Manifest;
 import android.content.Context;
