@@ -2,8 +2,11 @@ package com.example.traveltracer.Member.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ListActivity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,10 +17,19 @@ import android.widget.TextView;
 
 import com.example.traveltracer.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import retrofit2.http.GET;
+import retrofit2.http.Tag;
+
 public class Post_Main extends AppCompatActivity {
 
     TextView back;
-    ListView postlist;
+    ListView postlist, listView;
     Button createpost, droppost;
 
     @Override
@@ -54,5 +66,6 @@ public class Post_Main extends AppCompatActivity {
                 R.array.post_category, android.R.layout.simple_spinner_dropdown_item);
         // 스피너 어댑터 적용
         spinner1.setAdapter(adapter1);
+
     }
 }
