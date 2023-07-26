@@ -22,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.traveltracer.Location.Map.CheckpointManager;
 import com.example.traveltracer.Post.activity.Post_Main;
 import com.example.traveltracer.R;
+import com.example.traveltracer.Setting.setting;
 import com.google.android.material.navigation.NavigationView;
 
 //지도 부분 import
@@ -157,7 +158,13 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
                         }
                     });
                 } else if (itemId == R.id.menuItem3) {
-                    Toast.makeText(getApplicationContext(), "환경설정 이동", Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.menuItem3).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Main.this, setting.class);
+                            startActivity(intent);
+                        }
+                    });
                 } else if (itemId == R.id.menuItem4) {
                     // 다이얼 로그 초기화, 타이틀 제거, xml 연결
                     logoutdialog = new Dialog(Main.this);
