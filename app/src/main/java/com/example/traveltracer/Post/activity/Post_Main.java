@@ -54,5 +54,12 @@ public class Post_Main extends AppCompatActivity {
         // 스피너 어댑터 적용
         spinner1.setAdapter(adapter1);
 
+        // 나중에 지우기 잠깐 땜빵용
+        String countryList[] = {"이명석 게시물", "이명석 여행 일지"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countryList);
+
+        ListView listView = (ListView) findViewById(R.id.post_list);
+        listView.setAdapter(arrayAdapter);
+
     }
 }
