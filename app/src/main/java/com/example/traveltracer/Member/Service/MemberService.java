@@ -21,11 +21,13 @@ import retrofit2.http.Path;
 
 public interface MemberService {
 
+    //post를 통해 retrofit 주소 연결 뒷부분에 해당 (즉 동작 하는 부분으로 연결해주는 부분ㄴ)
     @POST("/signUp")
     Call<CommonResponse> userSignUp(@Body SignUpdata signUpdata);
 
     @GET("/check/{userId}")
     Call<CommonResponse> checkIdExist(@Path("userId") String userId);
+
 
     @Headers("Content-Type: application/json")
     @POST("/login")

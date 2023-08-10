@@ -136,6 +136,7 @@ public class SignUp extends AppCompatActivity {
 
     private void startJoin(SignUpdata signUpdata) {
         service.userSignUp(signUpdata).enqueue(new Callback<CommonResponse>() {
+            //서버로 데이터 전송하는 부분
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                 CommonResponse result = response.body();
@@ -176,6 +177,7 @@ public class SignUp extends AppCompatActivity {
             idFocusView.requestFocus();
         } else {
             service.checkIdExist(userId).enqueue(new Callback<CommonResponse>() {
+                //서버로 아이디 정보 전송
                 @Override
                 public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                     CommonResponse checkIdResponse = response.body();

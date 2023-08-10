@@ -56,7 +56,7 @@ public class CheckpointManager {
     //현재 위치를 가져와 위치 업데이트 확인 하기 위한 타이머 시작
     public void setupCheckpoint() {
         //locationHelper.getCurrentLocation() : 현재 위치를 비동기적으로 가져오기 위해 사용하는 메서드
-        //LocationCallback() : 현재 위치를 가져와 호툴되는 콜백
+        //LocationCallback() : 현재 위치를 가져와 호출되는 콜백
         locationHelper.getCurrentLocation(new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) { //현재위치 정보를 처리

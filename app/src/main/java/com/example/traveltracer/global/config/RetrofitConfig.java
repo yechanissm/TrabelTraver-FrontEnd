@@ -5,7 +5,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitConfig {
 
-    private final static String BASE_URL = "http://10.0.2.2:8092";
+    //로컬 주소 연결
+    private final static String BASE_URL = "http://10.0.2.2:8092";  //연결 주소 (실질적으로 현재 로컬 주소 ) 난중에 서버 연결 할 부분
     private static Retrofit retrofit = null;
 
     public RetrofitConfig() {

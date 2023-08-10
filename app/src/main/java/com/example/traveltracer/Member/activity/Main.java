@@ -1,8 +1,10 @@
 package com.example.traveltracer.Member.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,11 +13,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -23,19 +26,11 @@ import com.example.traveltracer.Location.Map.CheckpointManager;
 import com.example.traveltracer.Post.activity.Post_Main;
 import com.example.traveltracer.R;
 import com.example.traveltracer.Setting.setting;
-import com.google.android.material.navigation.NavigationView;
-
-//지도 부분 import
-import android.Manifest;
-import android.content.pm.PackageManager;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.material.navigation.NavigationView;
 
 public class Main extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -47,7 +42,7 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     //위치 값 받을 떄 사용되는 객체
     private LocationCallback locationCallback;
-    private CheckpointManager checkpointManager;
+    private com.example.traveltracer.Location.Map.CheckpointManager checkpointManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,11 +157,11 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(Main.this, setting.class);
-                            startActivity(intent);
+                            startActivity(intent); // 환경설정 버튼 클릭 시 창 이동
                         }
-                    });
-                } else if (itemId == R.id.menuItem4) {
-                    // 다이얼 로그 초기화, 타이틀 제거, xml 연결
+                    });}
+                else if (itemId == R.id.menuItem4) {
+                    // 다이얼 로그 초기화, 타이틀 제거,ㅂㅈ xml 연결
                     logoutdialog = new Dialog(Main.this);
                     logoutdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     logoutdialog.setContentView(R.layout.logout_dialog);
