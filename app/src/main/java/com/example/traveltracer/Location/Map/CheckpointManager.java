@@ -3,7 +3,11 @@ package com.example.traveltracer.Location.Map;
 import android.content.Context;
 import android.location.Location;
 import android.os.Handler;
+import android.widget.Toast;
 
+import com.example.traveltracer.Location.Data.locationData;
+import com.example.traveltracer.Location.service.LocationService;
+import com.example.traveltracer.Member.Response.CommonResponse;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,6 +19,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CheckpointManager {
 
@@ -34,6 +42,8 @@ public class CheckpointManager {
 
     private Handler handler;
     private Runnable timerRunnable;
+
+    private LocationService service;
 
     //CheckpointManger(객체 생성자)
     public CheckpointManager(Context context, GoogleMap map) {
@@ -147,7 +157,9 @@ public class CheckpointManager {
                 locationsToRemove.add(previousLocation);
                 if (map != null) {
                     // 마커 생성 코드
-                    MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(previousLocation.getLatitude(), previousLocation.getLongitude()));
+                    MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(previousLocation.getLatitude(), previousLocation.getLongitude()))
+                            //.title("이름을 뭘로 할까요?") <= 이름 생성 조건 작성
+                            ;
                     map.addMarker(markerOptions);
                 }
             }
@@ -157,6 +169,25 @@ public class CheckpointManager {
         for (Location locationToRemove : locationsToRemove) {
             markerCreationTimes.remove(locationToRemove);
         }
+    }
+
+    private void savePoint(locationData CheckPointData){
+
+        service.CheckPointSave(CheckPointData).enqueue(new Callback<CommonResponse>(){
+
+            @Override
+            public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+                CommonResponse result = response.body();
+                //Toast.makeText(CheckpointManager.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<CommonResponse> call, Throwable t) {
+
+            }
+
+
+        });
     }
 
 

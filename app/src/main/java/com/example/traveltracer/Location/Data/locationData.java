@@ -17,6 +17,13 @@ public class locationData {
     @SerializedName("latitude")
     private double latitude;
 
+    @SerializedName("createYear")
+    private int createYear;
+
+    @SerializedName("createMonth")
+    private int createMonth;
+
+
     public void CheckPointData(){
 
     }
