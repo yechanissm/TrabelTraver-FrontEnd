@@ -3,11 +3,15 @@ package com.example.traveltracer.Location.Map;
 import android.content.Context;
 import android.location.Location;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.traveltracer.Location.Data.locationData;
 import com.example.traveltracer.Location.service.LocationService;
 import com.example.traveltracer.Member.Response.CommonResponse;
+import com.example.traveltracer.Member.activity.SignUp;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CheckpointManager {
+public class CheckpointManager extends AppCompatActivity {
 
     private Context context;
     private LocationHelper locationHelper;
@@ -179,11 +183,22 @@ public class CheckpointManager {
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                 CommonResponse result = response.body();
                 //Toast.makeText(CheckpointManager.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+                System.out.println("위치 저장 완료?");
+                if(result.getCode()==200){
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "위치 저장 실패", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             @Override
             public void onFailure(Call<CommonResponse> call, Throwable t) {
-
+                String message = t.getMessage();
+                System.out.println(message);
+                Toast.makeText(CheckpointManager.this, message, Toast.LENGTH_SHORT).show();
+                Log.e("위치 저장 에러 발생", t.getMessage());
             }
 
 
