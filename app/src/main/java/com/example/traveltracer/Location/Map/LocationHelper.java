@@ -32,6 +32,8 @@ public class LocationHelper {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
     }
 
+
+    // 현재 위치 받아오는 부분
     public void getCurrentLocation(LocationCallback locationCallback) {
         LocationRequest locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)

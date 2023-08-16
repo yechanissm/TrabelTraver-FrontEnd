@@ -136,6 +136,7 @@ public class SignUp extends AppCompatActivity {
 
     private void startJoin(SignUpdata signUpdata) {
         service.userSignUp(signUpdata).enqueue(new Callback<CommonResponse>() {
+            //서버로 데이터 전송하는 부분
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                 CommonResponse result = response.body();
@@ -169,13 +170,15 @@ public class SignUp extends AppCompatActivity {
         boolean check_id =false;
         if (userId.isEmpty()) {
             userIdView.setError("아이디를 입력해주세요.");
-            idFocusView = userIdView;
+            idFocusView = userIdView;  //칸 위치 이동
             check_id = true;
         }
         if (check_id) {
             idFocusView.requestFocus();
         } else {
-            service.checkIdExist(userId).enqueue(new Callback<CommonResponse>() {
+            //service 백엔드 동작 과정
+            service.checkIdExist(userId).enqueue(new Callback<CommonResponse>() { //new Callback<CommonResponse>호출하고 응답받은거
+                //서버로 아이디 정보 전송
                 @Override
                 public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                     CommonResponse checkIdResponse = response.body();
@@ -188,7 +191,7 @@ public class SignUp extends AppCompatActivity {
                     }
                 }
                 @Override
-                public void onFailure(Call<CommonResponse> call, Throwable t){
+                public void onFailure(Call<CommonResponse> call, Throwable t){  //Throwable t : 자체 오버라이드
                     String message = t.getMessage();
                     Toast.makeText(SignUp.this,message , Toast.LENGTH_SHORT).show();
                     Log.e("회원가입 에러 발생", t.getMessage());

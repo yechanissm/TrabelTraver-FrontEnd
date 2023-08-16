@@ -1,51 +1,38 @@
 package com.example.traveltracer.Location.Data;
 
-import android.location.Location;
+
+import com.google.gson.annotations.SerializedName;
 
 public class locationData {
 
-    private double newlongitude;
-    private double newlatitude;
+    @SerializedName("locationId")
+    private int locationId;
 
-    private double lastlongitude;
-    private double lastlatitude;
+    @SerializedName("locatoinName")
+    private String locationName;
 
-    public void setnewLatitude(double latitude) {
+    @SerializedName("longitude")
+    private double longitude;
 
-        this.newlatitude = latitude;
+    @SerializedName("latitude")
+    private double latitude;
+
+    @SerializedName("createYear")
+    private int createYear;
+
+    @SerializedName("createMonth")
+    private int createMonth;
+
+
+    public void CheckPointData(){
+
+    }
+    public void CheckPointData(int locationId, String locationName, double longitude, double latitude){
+        this.locationId = locationId;
+        this.locationName = locationName;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
-    public void setnewLongitude(double longitude) {
-
-        this.newlongitude = longitude;
-    }
-
-    public double getnewLatitude() {
-
-        return newlatitude;
-    }
-
-    public double getnewLongitude() {
-        return newlongitude;
-    }
-    public void setlastLatitude(double latitude) {
-
-        this.lastlatitude = latitude;
-    }
-
-    public void setlastLongitude(double longitude) {
-
-        this.lastlongitude = longitude;
-    }
-
-    public double getlastLatitude() {
-
-        return lastlatitude;
-    }
-
-    public double getlastLongitude() {
-
-        return lastlongitude;
-    }
 
 }

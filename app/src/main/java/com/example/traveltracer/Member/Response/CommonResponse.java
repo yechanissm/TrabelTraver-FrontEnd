@@ -13,6 +13,9 @@ public class CommonResponse<T> {
     @SerializedName("data")
     private T data;
 
+
+    //code : 성공 여부 코드
+    //message : 성공 여부에 대한 출력값
     public CommonResponse(int code, String message) {
         this.code = code;
         this.message = message;
