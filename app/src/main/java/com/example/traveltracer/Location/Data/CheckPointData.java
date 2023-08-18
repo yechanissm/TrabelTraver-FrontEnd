@@ -3,7 +3,7 @@ package com.example.traveltracer.Location.Data;
 
 import com.google.gson.annotations.SerializedName;
 
-public class locationData {
+public class CheckPointData {
 
     @SerializedName("locationId")
     private int locationId;
@@ -17,21 +17,19 @@ public class locationData {
     @SerializedName("latitude")
     private double latitude;
 
-    @SerializedName("createYear")
-    private int createYear;
-
-    @SerializedName("createMonth")
-    private int createMonth;
+    @SerializedName("creatTime")
+    private long createtime;
 
 
-    public void CheckPointData(){
+    public void CheckPointdata(){
 
     }
-    public void CheckPointData(int locationId, String locationName, double longitude, double latitude){
+    public void CheckPointdata(int locationId, String locationName, double longitude, double latitude, long createtime){
         this.locationId = locationId;
         this.locationName = locationName;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.createtime = createtime;
     }
 
 
