@@ -8,10 +8,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.traveltracer.Location.Data.locationData;
+import com.example.traveltracer.Location.Data.CheckPointData;
 import com.example.traveltracer.Location.service.LocationService;
 import com.example.traveltracer.Member.Response.CommonResponse;
-import com.example.traveltracer.Member.activity.SignUp;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.GoogleMap;
@@ -48,6 +47,10 @@ public class CheckpointManager extends AppCompatActivity {
     private Runnable timerRunnable;
 
     private LocationService service;
+    //체크 포인트 저장
+    private CheckPointData locationdata;
+
+    public int locationIndex = 0;
 
     //CheckpointManger(객체 생성자)
     public CheckpointManager(Context context, GoogleMap map) {
@@ -162,9 +165,10 @@ public class CheckpointManager extends AppCompatActivity {
                 if (map != null) {
                     // 마커 생성 코드
                     MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(previousLocation.getLatitude(), previousLocation.getLongitude()))
-                            //.title("이름을 뭘로 할까요?") <= 이름 생성 조건 작성
-                            ;
+                            .title("이름을 뭘로 할까요?");
                     map.addMarker(markerOptions);
+                    locationdata.CheckPointdata(locationIndex, "checkpoint"+ locationIndex, previousLocation.getLongitude(), previousLocation.getLatitude(), currentTime);
+                    locationIndex ++;
                 }
             }
         }
@@ -175,9 +179,9 @@ public class CheckpointManager extends AppCompatActivity {
         }
     }
 
-    private void savePoint(locationData CheckPointData){
+    private void savePoint(CheckPointData CheckPointdata){
 
-        service.CheckPointSave(CheckPointData).enqueue(new Callback<CommonResponse>(){
+        service.CheckPointSave(CheckPointdata).enqueue(new Callback<CommonResponse>(){
 
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
