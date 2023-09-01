@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.traveltracer.Location.Data.CheckPointData;
 import com.example.traveltracer.Location.service.LocationService;
 import com.example.traveltracer.Member.Response.CommonResponse;
+import com.example.traveltracer.Member.activity.SignUp;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,10 +48,8 @@ public class CheckpointManager extends AppCompatActivity {
     private Runnable timerRunnable;
 
     private LocationService service;
-    //체크 포인트 저장
-    private CheckPointData locationdata;
 
-    public int locationIndex = 0;
+    private int locationId =0;
 
     //CheckpointManger(객체 생성자)
     public CheckpointManager(Context context, GoogleMap map) {
@@ -165,10 +164,13 @@ public class CheckpointManager extends AppCompatActivity {
                 if (map != null) {
                     // 마커 생성 코드
                     MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(previousLocation.getLatitude(), previousLocation.getLongitude()))
-                            .title("이름을 뭘로 할까요?");
+                            //.title("이름을 뭘로 할까요?") <= 이름 생성 조건 작성
+                            ;
                     map.addMarker(markerOptions);
-                    locationdata.CheckPointdata(locationIndex, "checkpoint"+ locationIndex, previousLocation.getLongitude(), previousLocation.getLatitude(), currentTime);
-                    locationIndex ++;
+                    String savepoint = "savePoint" + locationId;
+                    savePoint(new CheckPointData(locationId, savepoint, previousLocation.getLongitude(), previousLocation.getLatitude(), currentTime));
+                    locationId++;
+
                 }
             }
         }
@@ -179,9 +181,9 @@ public class CheckpointManager extends AppCompatActivity {
         }
     }
 
-    private void savePoint(CheckPointData CheckPointdata){
+    private void savePoint(CheckPointData CheckPointData){
 
-        service.CheckPointSave(CheckPointdata).enqueue(new Callback<CommonResponse>(){
+        service.CheckPointSave(CheckPointData).enqueue(new Callback<CommonResponse>(){
 
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
