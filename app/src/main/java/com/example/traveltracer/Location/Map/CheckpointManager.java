@@ -191,7 +191,12 @@ public class CheckpointManager extends AppCompatActivity {
                 //Toast.makeText(CheckpointManager.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 System.out.println("위치 저장 완료?");
                 if(result.getCode()==200){
+                    Toast.makeText(CheckpointManager.this, "저장완료", Toast.LENGTH_SHORT).show();
+                    /*
 
+
+                    작성해야함
+                     */
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "위치 저장 실패", Toast.LENGTH_SHORT).show();
