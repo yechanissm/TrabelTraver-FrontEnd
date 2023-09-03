@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.traveltracer.Location.Data.CheckPointData;
 import com.example.traveltracer.Location.service.LocationService;
 import com.example.traveltracer.Member.Response.CommonResponse;
+import com.example.traveltracer.Member.activity.SignUp;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,6 +27,8 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CheckpointManager extends AppCompatActivity {
 
@@ -38,19 +41,17 @@ public class CheckpointManager extends AppCompatActivity {
 
     private boolean isFirstLocationUpdate = true;
     private LocationCallback locationCallback;
-    private static final long MINIMUM_UPDATE_INTERVAL = 3 * 60 * 1000; // 20 minutes
+    private static final long MINIMUM_UPDATE_INTERVAL = 1 * 60 * 1000; // 20 minutes
     private static final float MINIMUM_DISTANCE_THRESHOLD = 50; // 50 meters
-    private static final long STAY_DURATION = 3 * 60 * 1000; // 20 minutes
+    private static final long STAY_DURATION = 1 * 60 * 1000; // 20 minutes
     private HashMap<Location, Long> markerCreationTimes = new HashMap<>(); // 마커가 생성된 시간을 저장하는 맵
 
     private Handler handler;
     private Runnable timerRunnable;
 
     private LocationService service;
-    //체크 포인트 저장
-    private CheckPointData locationdata;
 
-    public int locationIndex = 0;
+    private int locationId =0;
 
     //CheckpointManger(객체 생성자)
     public CheckpointManager(Context context, GoogleMap map) {
@@ -59,6 +60,13 @@ public class CheckpointManager extends AppCompatActivity {
         this.locationHelper = new LocationHelper(context);
         this.checkpoints = new ArrayList<>();
         this.handler = new Handler();
+
+        // LocationService 초기화(주소 인식이 안되어 일단 수동으로 작성 ㅂㅈ)
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:8092")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        service = retrofit.create(LocationService.class);
 
         // 맵 객체가 null이 아닌 경우에만 마커를 추가하도록 초기화 시점을 변경합니다.
         if (this.map != null) {
@@ -165,11 +173,16 @@ public class CheckpointManager extends AppCompatActivity {
                 if (map != null) {
                     // 마커 생성 코드
                     MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(previousLocation.getLatitude(), previousLocation.getLongitude()))
-                            .title("이름을 뭘로 할까요?");
+                            //.title("이름을 뭘로 할까요?") <= 이름 생성 조건 작성
+                            ;
                     map.addMarker(markerOptions);
-                    locationdata.CheckPointdata(locationIndex, "checkpoint"+ locationIndex, previousLocation.getLongitude(), previousLocation.getLatitude(), currentTime);
-                    locationIndex ++;
+                    if(previousLocation != null) {
+                        String savepoint = "savePoint" + locationId;
+                        savePoint(new CheckPointData(locationId, savepoint, previousLocation.getLongitude(), previousLocation.getLatitude(), currentTime));
+                        locationId++;
+                    }
                 }
+
             }
         }
 
@@ -179,22 +192,27 @@ public class CheckpointManager extends AppCompatActivity {
         }
     }
 
-    private void savePoint(CheckPointData CheckPointdata){
-
-        service.CheckPointSave(CheckPointdata).enqueue(new Callback<CommonResponse>(){
-
+    private void savePoint(CheckPointData CheckPointData){
+        if (context == null) {
+            Log.e("savePoint", "Context is null, cannot show Toast.");
+            return; // context가 null이면 Toast를 생성하지 않고 함수 종료
+        }
+        service.CheckPointSave(CheckPointData).enqueue(new Callback<CommonResponse>(){
+            /*
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                 CommonResponse result = response.body();
                 //Toast.makeText(CheckpointManager.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 System.out.println("위치 저장 완료?");
                 if(result.getCode()==200){
-
+                    Toast.makeText(CheckpointManager.this, "저장완료", Toast.LENGTH_SHORT).show();
+                    doRepeatedTask();
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "위치 저장 실패", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
             }
 
             @Override
@@ -203,11 +221,59 @@ public class CheckpointManager extends AppCompatActivity {
                 System.out.println(message);
                 Toast.makeText(CheckpointManager.this, message, Toast.LENGTH_SHORT).show();
                 Log.e("위치 저장 에러 발생", t.getMessage());
+            }*/
+            // onResponse 메서드
+            @Override
+            public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+                if (response.isSuccessful()) {
+                    CommonResponse result = response.body();
+                    if (result != null) {
+                        if (result.getCode() == 200) {
+                            Toast.makeText(context, "저장완료", Toast.LENGTH_SHORT).show();
+                            doRepeatedTask();
+                        } else {
+                            Toast.makeText(context, "서버 에러: " + result.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(context, "서버 응답이 null입니다.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(context, "서버 응답 실패: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
             }
 
+            // onFailure 메서드
+            @Override
+            public void onFailure(Call<CommonResponse> call, Throwable t) {
+                String message = t.getMessage();
+                Log.e("위치 저장 에러 발생", message);
+                Toast.makeText(context, "네트워크 에러: " + message, Toast.LENGTH_SHORT).show();
+
+                // 실패한 경우에 대한 추가 처리를 수행할 수 있습니다.
+                // 예를 들어, 사용자에게 다시 시도하도록 안내하는 등의 작업을 수행할 수 있습니다.
+            }
 
         });
     }
+    private void doRepeatedTask() {
+        final Handler handler = new Handler();
+        final int delay = 30000; // 작업을 반복할 주기 (예: 30초마다)
+
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // 원하는 작업을 수행하는 코드를 여기에 추가
+                // 이 코드는 delay 시간마다 실행됩니다.
+
+                // 예: 위치 저장과 관련된 작업을 반복적으로 수행하려면 여기에 추가
+                savePoint(new CheckPointData(locationId, "savePoint" + locationId, previousLocation.getLongitude(), previousLocation.getLatitude(), System.currentTimeMillis()));
+                locationId++;
+
+                // 다음 실행을 위해 handler.postDelayed()를 호출하여 작업을 반복합니다.
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
+    }
+
 
 
 }
