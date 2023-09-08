@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 
 public interface LocationService {
 
-    @POST("/CheckpointManger")
+    @POST("/CheckpointManager")
     Call<CommonResponse> CheckPointSave(@Body CheckPointData CheckPointData);
 
 }

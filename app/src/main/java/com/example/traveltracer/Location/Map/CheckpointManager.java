@@ -12,6 +12,7 @@ import com.example.traveltracer.Location.Data.CheckPointData;
 import com.example.traveltracer.Location.service.LocationService;
 import com.example.traveltracer.Member.Response.CommonResponse;
 import com.example.traveltracer.Member.activity.SignUp;
+import com.example.traveltracer.global.config.RetrofitConfig;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.GoogleMap;
@@ -53,6 +54,7 @@ public class CheckpointManager extends AppCompatActivity {
 
     private int locationId =0;
 
+
     //CheckpointManger(객체 생성자)
     public CheckpointManager(Context context, GoogleMap map) {
         this.context = context;
@@ -60,13 +62,7 @@ public class CheckpointManager extends AppCompatActivity {
         this.locationHelper = new LocationHelper(context);
         this.checkpoints = new ArrayList<>();
         this.handler = new Handler();
-
-        // LocationService 초기화(주소 인식이 안되어 일단 수동으로 작성 ㅂㅈ)
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8092")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        service = retrofit.create(LocationService.class);
+        this.service = RetrofitConfig.getLocationService();
 
         // 맵 객체가 null이 아닌 경우에만 마커를 추가하도록 초기화 시점을 변경합니다.
         if (this.map != null) {
@@ -197,6 +193,7 @@ public class CheckpointManager extends AppCompatActivity {
             Log.e("savePoint", "Context is null, cannot show Toast.");
             return; // context가 null이면 Toast를 생성하지 않고 함수 종료
         }
+
         service.CheckPointSave(CheckPointData).enqueue(new Callback<CommonResponse>(){
             /*
             @Override
@@ -257,7 +254,7 @@ public class CheckpointManager extends AppCompatActivity {
     }
     private void doRepeatedTask() {
         final Handler handler = new Handler();
-        final int delay = 30000; // 작업을 반복할 주기 (예: 30초마다)
+        final int delay = 100000; // 작업을 반복할 주기 (예: 10분ㅂㅈ마다)
 
         handler.postDelayed(new Runnable() {
             public void run() {
