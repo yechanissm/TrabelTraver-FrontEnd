@@ -52,7 +52,9 @@ public class CheckpointManager extends AppCompatActivity {
 
     private LocationService service;
 
-    private int locationId =0;
+    private int locationId =1;
+
+    private long currentTime;
 
 
     //CheckpointManger(객체 생성자)
@@ -99,6 +101,7 @@ public class CheckpointManager extends AppCompatActivity {
     // 경유지 업데이트 및 위치 업데이트가 된후 마커 생성 여부 판별하는 메소드
     private void updateCheckpoint(Location currentLocation) {
         if (previousLocation == null) {  //이전 정보가 없으면 새로운 위치 정보 저장
+            previousLocation = currentLocation;  //현재 위치를 이전 위치로 설정
             // 최초 위치 정보
             saveNewCheckpoint(currentLocation);
             markerCreationTimes.put(currentLocation, System.currentTimeMillis()); //
@@ -149,7 +152,7 @@ public class CheckpointManager extends AppCompatActivity {
         handler.postDelayed(timerRunnable, STAY_DURATION);
     }
     private void createMarkerIfLocationStays(Location location) {
-        long currentTime = System.currentTimeMillis();
+        currentTime = System.currentTimeMillis();
         markerCreationTimes.put(location, currentTime); // 현재 위치의 마커 생성 시간을 맵에 저장
 
         List<Location> locationsToRemove = new ArrayList<>();
@@ -262,7 +265,7 @@ public class CheckpointManager extends AppCompatActivity {
                 // 이 코드는 delay 시간마다 실행됩니다.
 
                 // 예: 위치 저장과 관련된 작업을 반복적으로 수행하려면 여기에 추가
-                savePoint(new CheckPointData(locationId, "savePoint" + locationId, previousLocation.getLongitude(), previousLocation.getLatitude(), System.currentTimeMillis()));
+                savePoint(new CheckPointData(locationId, "savePoint" + locationId, previousLocation.getLongitude(), previousLocation.getLatitude(), currentTime));
                 locationId++;
 
                 // 다음 실행을 위해 handler.postDelayed()를 호출하여 작업을 반복합니다.

@@ -2,6 +2,8 @@ package com.example.traveltracer.global.config;
 
 import com.example.traveltracer.Location.service.LocationService;
 
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -18,12 +20,15 @@ public class RetrofitConfig {
         if(retrofit == null ) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .addConverterFactory(new NullOnEmptyConverterFactory())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
 
         return retrofit;
     }
+
+
 
     //지도 내용 전송 부분에서 자꾸 에러가 떠서 새로 생성함
     public static LocationService getLocationService() {

@@ -10,7 +10,7 @@ public class CheckPointData {
     @SerializedName("locationId")
     private int locationId;
 
-    @SerializedName("locatoinName")
+    @SerializedName("locationName")
     private String locationName;
 
     @SerializedName("longitude")
