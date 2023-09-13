@@ -12,6 +12,7 @@ import com.example.traveltracer.Location.Data.CheckPointData;
 import com.example.traveltracer.Location.service.LocationService;
 import com.example.traveltracer.Member.Response.CommonResponse;
 import com.example.traveltracer.Member.activity.SignUp;
+import com.example.traveltracer.global.config.RetrofitConfig;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.GoogleMap;
@@ -51,7 +52,10 @@ public class CheckpointManager extends AppCompatActivity {
 
     private LocationService service;
 
-    private int locationId =0;
+    private int locationId =1;
+
+    private long currentTime;
+
 
     //CheckpointManger(객체 생성자)
     public CheckpointManager(Context context, GoogleMap map) {
@@ -60,13 +64,7 @@ public class CheckpointManager extends AppCompatActivity {
         this.locationHelper = new LocationHelper(context);
         this.checkpoints = new ArrayList<>();
         this.handler = new Handler();
-
-        // LocationService 초기화(주소 인식이 안되어 일단 수동으로 작성 ㅂㅈ)
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8092")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        service = retrofit.create(LocationService.class);
+        this.service = RetrofitConfig.getLocationService();
 
         // 맵 객체가 null이 아닌 경우에만 마커를 추가하도록 초기화 시점을 변경합니다.
         if (this.map != null) {
@@ -103,6 +101,7 @@ public class CheckpointManager extends AppCompatActivity {
     // 경유지 업데이트 및 위치 업데이트가 된후 마커 생성 여부 판별하는 메소드
     private void updateCheckpoint(Location currentLocation) {
         if (previousLocation == null) {  //이전 정보가 없으면 새로운 위치 정보 저장
+            previousLocation = currentLocation;  //현재 위치를 이전 위치로 설정
             // 최초 위치 정보
             saveNewCheckpoint(currentLocation);
             markerCreationTimes.put(currentLocation, System.currentTimeMillis()); //
@@ -153,7 +152,7 @@ public class CheckpointManager extends AppCompatActivity {
         handler.postDelayed(timerRunnable, STAY_DURATION);
     }
     private void createMarkerIfLocationStays(Location location) {
-        long currentTime = System.currentTimeMillis();
+        currentTime = System.currentTimeMillis();
         markerCreationTimes.put(location, currentTime); // 현재 위치의 마커 생성 시간을 맵에 저장
 
         List<Location> locationsToRemove = new ArrayList<>();
@@ -197,6 +196,7 @@ public class CheckpointManager extends AppCompatActivity {
             Log.e("savePoint", "Context is null, cannot show Toast.");
             return; // context가 null이면 Toast를 생성하지 않고 함수 종료
         }
+
         service.CheckPointSave(CheckPointData).enqueue(new Callback<CommonResponse>(){
             /*
             @Override
@@ -257,7 +257,7 @@ public class CheckpointManager extends AppCompatActivity {
     }
     private void doRepeatedTask() {
         final Handler handler = new Handler();
-        final int delay = 30000; // 작업을 반복할 주기 (예: 30초마다)
+        final int delay = 100000; // 작업을 반복할 주기 (예: 10분ㅂㅈ마다)
 
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -265,7 +265,7 @@ public class CheckpointManager extends AppCompatActivity {
                 // 이 코드는 delay 시간마다 실행됩니다.
 
                 // 예: 위치 저장과 관련된 작업을 반복적으로 수행하려면 여기에 추가
-                savePoint(new CheckPointData(locationId, "savePoint" + locationId, previousLocation.getLongitude(), previousLocation.getLatitude(), System.currentTimeMillis()));
+                savePoint(new CheckPointData(locationId, "savePoint" + locationId, previousLocation.getLongitude(), previousLocation.getLatitude(), currentTime));
                 locationId++;
 
                 // 다음 실행을 위해 handler.postDelayed()를 호출하여 작업을 반복합니다.
