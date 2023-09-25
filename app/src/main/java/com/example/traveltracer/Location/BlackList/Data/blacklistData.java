@@ -1,11 +1,11 @@
-package com.example.traveltracer.Location.Data;
+package com.example.traveltracer.Location.BlackList.Data;
 
 import com.google.gson.annotations.SerializedName;
 
 public class blacklistData {
 
-    @SerializedName("locationId")
-    private String locationId;
+    @SerializedName("blackListId")
+    private int blackListId;
 
     @SerializedName("locatoinName")
     private String locationName;
@@ -16,6 +16,7 @@ public class blacklistData {
     @SerializedName("latitude")
     private double latitude;
 
-
+    @SerializedName("userId")
+    private String userId;
 
 }

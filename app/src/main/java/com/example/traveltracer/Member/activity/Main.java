@@ -22,7 +22,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.traveltracer.Location.Map.CheckpointManager;
+import com.example.traveltracer.Location.CheckPoint.CheckpointManager;
 import com.example.traveltracer.Post.activity.Post_Main;
 import com.example.traveltracer.R;
 import com.example.traveltracer.Setting.setting;
@@ -42,7 +42,7 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     //위치 값 받을 떄 사용되는 객체
     private LocationCallback locationCallback;
-    private com.example.traveltracer.Location.Map.CheckpointManager checkpointManager;
+    private com.example.traveltracer.Location.CheckPoint.CheckpointManager checkpointManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
