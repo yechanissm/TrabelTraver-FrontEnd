@@ -38,7 +38,7 @@ public class TimerManager {
 
     // 타이머 초기화
     public void locationResetTimer() {
-        Log.d("타이머 초기화 ", "초기화 되니?");
+        Log.d("타이머 초기화 ", "초기화 되니?ㅂ");
         if (LocationTimerRunnable != null) {
             handler.removeCallbacks(LocationTimerRunnable); // 타이머 정지
             LocationTimerRunnable = null; // 타이머 객체 초기화
