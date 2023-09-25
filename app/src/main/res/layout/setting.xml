@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".Setting.setting">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- 뒤로가기 글씨-->
+        <TextView
+            android:id="@+id/setting_back"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:text="back"
+            android:textSize="20dp" />
+        <!-- 환경설정 글씨-->
+        <TextView
+            android:id="@+id/setting_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="환경 설정"
+            android:textSize="25dp" />
+
+        <!-- 가운데 정렬 공백 용-->
+        <View
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!-- 블랙 리스트 글씨-->
+        <TextView
+            android:id="@+id/setting_blacklist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="블랙 리스트"
+            android:textSize="24dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

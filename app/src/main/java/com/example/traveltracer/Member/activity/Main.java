@@ -1,71 +1,48 @@
 package com.example.traveltracer.Member.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.traveltracer.MainActivity;
-import com.example.traveltracer.Member.map.LocationUtils;
-import com.example.traveltracer.Member.map.MarkerUtils;
-import com.example.traveltracer.Member.map.locationData;
+import com.example.traveltracer.Location.Map.CheckpointManager;
+import com.example.traveltracer.Post.activity.Post_Main;
 import com.example.traveltracer.R;
-import com.google.android.material.navigation.NavigationView;
-
-//지도 부분 import
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import com.google.android.gms.location.FusedLocationProviderClient;
+import com.example.traveltracer.Setting.setting;
 import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 
 public class Main extends AppCompatActivity implements OnMapReadyCallback {
 
     Dialog logoutdialog; // 커스텀 다이얼 로그
 
     // 지도 연동
-    public GoogleMap map;
+    private GoogleMap map;
 
-    public static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
-
+    public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    //위치 값 받을 떄 사용되는 객체
+    private LocationCallback locationCallback;
+    private com.example.traveltracer.Location.Map.CheckpointManager checkpointManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +52,6 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
 
         this.InitializeLayout();
-
     }
     /*
 
@@ -85,14 +61,20 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
 
 
     // 지도 호출 부분 구글 맵을 객체로 받아 실행
+    // 지도 호출 부분 구글 맵을 객체로 받아 실행
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             // 권한이 부여되었으므로 My Location 레이어를 활성화합니다
             enableMyLocation();
+            // CheckpointManager 인스턴스 생성
+            checkpointManager = new CheckpointManager(this, map);
+            // setupCheckpoint() 메서드 호출
+            checkpointManager.setupCheckpoint();
         } else {
             // 권한이 부여되지 않았으므로 요청합니다
             ActivityCompat.requestPermissions(this,
@@ -100,6 +82,7 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
+
 
     //my location 레이어 활성화하는 부분
     private void enableMyLocation() {
@@ -121,6 +104,10 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
                 Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
             }
         }
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 
 
 /*
@@ -157,11 +144,24 @@ public class Main extends AppCompatActivity implements OnMapReadyCallback {
                 if (itemId == R.id.menuItem1) {
                     Toast.makeText(getApplicationContext(), "친구 목록 이동", Toast.LENGTH_SHORT).show();
                 } else if (itemId == R.id.menuItem2) {
-                    Toast.makeText(getApplicationContext(), "게시물 목록 이동", Toast.LENGTH_SHORT).show();
+                    // 클릭 시 게시물 창으로 이동
+                    findViewById(R.id.menuItem2).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Main.this, Post_Main.class);
+                            startActivity(intent);
+                        }
+                    });
                 } else if (itemId == R.id.menuItem3) {
-                    Toast.makeText(getApplicationContext(), "환경설정 이동", Toast.LENGTH_SHORT).show();
-                } else if (itemId == R.id.menuItem4) {
-                    // 다이얼 로그 초기화, 타이틀 제거, xml 연결
+                    findViewById(R.id.menuItem3).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Main.this, setting.class);
+                            startActivity(intent); // 환경설정 버튼 클릭 시 창 이동
+                        }
+                    });}
+                else if (itemId == R.id.menuItem4) {
+                    // 다이얼 로그 초기화, 타이틀 제거,ㅂㅈ xml 연결
                     logoutdialog = new Dialog(Main.this);
                     logoutdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     logoutdialog.setContentView(R.layout.logout_dialog);

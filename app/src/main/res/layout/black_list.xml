@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".Setting.Black_List">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- 뒤로가기 글씨-->
+        <TextView
+            android:id="@+id/black_list_back"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:text="back"
+            android:textSize="20dp" />
+        <!-- 블랙 리스트 글씨-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="블랙 리스트"
+            android:textSize="25dp" />
+
+        <!-- 가운데 정렬 공백 용-->
+        <View
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-- 블랙 리스트 설명-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="블랙 리스트 추가 기능은 집, 회사 등 자주 머무르는 곳에 체크 포인트가 생성되지 않게 설정할 수 있는 기능입니다."
+            android:textSize="16dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="460dp"
+        android:orientation="vertical">
+        <!-- 목록 글씨-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:text="블랙리스트 목록"
+            android:textSize="16dp" />
+        <!-- 블랙 리스트 목록 -->
+        <ListView
+            android:id="@+id/black_list_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <!-- 추가하기 버튼 -->
+        <Button
+            android:id="@+id/black_list_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="블랙리스트 추가" />
+
+    </LinearLayout>
+
+</LinearLayout>

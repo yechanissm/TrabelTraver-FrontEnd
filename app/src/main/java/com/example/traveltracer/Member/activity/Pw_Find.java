@@ -129,7 +129,6 @@ public class Pw_Find extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(Pw_Find.this,"확인을 누르셨습니다.",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Pw_Find.this, Login_form.class);
-                        startActivity(intent);
                     }
                 });
                 pwDialog.show();
