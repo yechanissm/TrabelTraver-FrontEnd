@@ -1,4 +1,4 @@
-package com.example.traveltracer.Location.Map;
+package com.example.traveltracer.Location.CheckPoint;
 
 import android.Manifest;
 import android.content.Context;
@@ -16,6 +16,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +28,7 @@ public class LocationHelper {
     private Context context;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
+
     public LocationHelper(Context context) {
         this.context = context;
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
@@ -35,10 +37,19 @@ public class LocationHelper {
 
     // 현재 위치 받아오는 부분
     public void getCurrentLocation(LocationCallback locationCallback) {
-        LocationRequest locationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+       /* LocationRequest locationRequest = LocationRequest.create()
                 .setInterval(5000)
-                .setFastestInterval(2000);
+                .setFastestInterval(2000)
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+*/
+        int locationInterval = 5000; // 위치 업데이트 간격 (밀리초)
+        int locationFastestInterval = 2000; // 가장 빠른 위치 업데이트 간격 (밀리초)
+        int locationMaxWaitTime = 10000; // 최대 위치 업데이트 대기 시간 (밀리초)
+        LocationRequest locationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY,locationInterval)
+                .setWaitForAccurateLocation(false)
+                .setMinUpdateIntervalMillis(locationFastestInterval)
+                .setMaxUpdateDelayMillis(locationMaxWaitTime)
+                .build();
 
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest);
@@ -93,4 +104,5 @@ public class LocationHelper {
             }
         });
     }
+
 }
