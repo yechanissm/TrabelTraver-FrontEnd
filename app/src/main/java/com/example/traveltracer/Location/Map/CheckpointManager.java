@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.traveltracer.Location.CheckPoint.LocationHelper;
 import com.example.traveltracer.Location.Data.CheckPointData;
 import com.example.traveltracer.Location.service.LocationService;
 import com.example.traveltracer.Member.Response.CommonResponse;
@@ -42,9 +43,9 @@ public class CheckpointManager extends AppCompatActivity {
 
     private boolean isFirstLocationUpdate = true;
     private LocationCallback locationCallback;
-    private static final long MINIMUM_UPDATE_INTERVAL = 300 * 60 * 1000; // 20 minutes
+    private static final long MINIMUM_UPDATE_INTERVAL = 1 * 60 * 1000; // 20 minutes
     private static final float MINIMUM_DISTANCE_THRESHOLD = 50; // 50 meters
-    private static final long STAY_DURATION = 300 * 60 * 1000; // 20 minutes
+    private static final long STAY_DURATION = 1 * 60 * 1000; // 20 minutes
     private HashMap<Location, Long> markerCreationTimes = new HashMap<>(); // 마커가 생성된 시간을 저장하는 맵
 
     private Handler handler;
