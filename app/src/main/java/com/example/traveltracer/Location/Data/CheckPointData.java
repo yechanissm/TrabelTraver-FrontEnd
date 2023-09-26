@@ -19,19 +19,14 @@ public class CheckPointData {
     @SerializedName("latitude")
     private double latitude;
 
-    @SerializedName("createTime")
-    private long createtime;
-
-
     public CheckPointData(){
 
     }
-    public CheckPointData(int locationId, String locationName, double longitude, double latitude, long createtime){
+    public CheckPointData(int locationId, String locationName, double longitude, double latitude){
         this.locationId = locationId;
         this.locationName = locationName;
         this.longitude = longitude;
         this.latitude = latitude;
-        this.createtime = createtime;
     }
 
 

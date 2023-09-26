@@ -35,4 +35,6 @@ public class RetrofitConfig {
         return getClient().create(LocationService.class);
     }
 
+    private static class NullOnEmptyConverterFactory extends Converter.Factory {
+    }
 }

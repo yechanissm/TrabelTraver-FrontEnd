@@ -42,9 +42,9 @@ public class CheckpointManager extends AppCompatActivity {
 
     private boolean isFirstLocationUpdate = true;
     private LocationCallback locationCallback;
-    private static final long MINIMUM_UPDATE_INTERVAL = 1 * 60 * 1000; // 20 minutes
+    private static final long MINIMUM_UPDATE_INTERVAL = 300 * 60 * 1000; // 20 minutes
     private static final float MINIMUM_DISTANCE_THRESHOLD = 50; // 50 meters
-    private static final long STAY_DURATION = 1 * 60 * 1000; // 20 minutes
+    private static final long STAY_DURATION = 300 * 60 * 1000; // 20 minutes
     private HashMap<Location, Long> markerCreationTimes = new HashMap<>(); // 마커가 생성된 시간을 저장하는 맵
 
     private Handler handler;
@@ -177,7 +177,7 @@ public class CheckpointManager extends AppCompatActivity {
                     map.addMarker(markerOptions);
                     if(previousLocation != null) {
                         String savepoint = "savePoint" + locationId;
-                        savePoint(new CheckPointData(locationId, savepoint, previousLocation.getLongitude(), previousLocation.getLatitude(), currentTime));
+                        savePoint(new CheckPointData(locationId, savepoint, previousLocation.getLongitude(), previousLocation.getLatitude()));
                         locationId++;
                     }
                 }
@@ -265,7 +265,7 @@ public class CheckpointManager extends AppCompatActivity {
                 // 이 코드는 delay 시간마다 실행됩니다.
 
                 // 예: 위치 저장과 관련된 작업을 반복적으로 수행하려면 여기에 추가
-                savePoint(new CheckPointData(locationId, "savePoint" + locationId, previousLocation.getLongitude(), previousLocation.getLatitude(), currentTime));
+                savePoint(new CheckPointData(locationId, "savePoint" + locationId, previousLocation.getLongitude(), previousLocation.getLatitude()));
                 locationId++;
 
                 // 다음 실행을 위해 handler.postDelayed()를 호출하여 작업을 반복합니다.
@@ -273,7 +273,4 @@ public class CheckpointManager extends AppCompatActivity {
             }
         }, delay);
     }
-
-
-
 }

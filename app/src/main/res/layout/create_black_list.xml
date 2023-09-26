@@ -28,6 +28,28 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
         android:orientation="vertical">
+        <!--제목 글씨-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="제목"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/title_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="제목을 입력해주세요" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:orientation="vertical">
         <!--주소 검색 글씨-->
         <TextView
             android:layout_width="match_parent"
@@ -36,15 +58,21 @@
             android:text="주소"
             android:textSize="20dp"
             android:textStyle="bold" />
-        <!--주소 입력 창-->
-        <fragment
-            android:id="@+id/address_search"
-            android:padding="16dp"
+        <EditText
+            android:id="@+id/address_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"/>
+            android:hint="주소를 입력해주세요" />
     </LinearLayout>
+
+    <!--변환하기 버튼-->
+    <Button
+        android:id="@+id/conversion_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="변환하기"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,15 +90,15 @@
             android:text="위도"
             android:textSize="20dp"
             android:textStyle="bold" />
-        <!--위도 값 나타내는 텍스트 뷰-->
-        <TextView
-            android:id="@+id/latitude"
+        <!--위도 값 나타나는 텍스트-->
+        <EditText
+            android:id="@+id/latitude_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="위도 값 들어오는 부분 // 나중에 지우기"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="numberDecimal" />
     </LinearLayout>
 
     <LinearLayout
@@ -89,21 +117,21 @@
             android:text="경도"
             android:textSize="20dp"
             android:textStyle="bold" />
-        <!--경도 값 나타내는 텍스트 뷰-->
-        <TextView
-            android:id="@+id/hardness"
+        <!--경도 값 나타나는 텍스트-->
+        <EditText
+            android:id="@+id/longitude_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="경도 값 들어오는 부분 // 나중에 지우기"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="numberDecimal" />
     </LinearLayout>
 
     <!--  공백 용-->
     <View
         android:layout_width="70dp"
-        android:layout_height="370dp"
+        android:layout_height="150dp"
         android:gravity="center" />
 
     <LinearLayout
@@ -118,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:text="취소" />
-        <!--등록하기 버튼-->
+        <!--추가하기 버튼-->
         <Button
             android:id="@+id/create_blacklist_button"
             android:layout_width="wrap_content"
