@@ -138,7 +138,7 @@ private void updateCheckpoint(Location currentLocation) {
             map.addMarker(markerOptions);
             // 마커 생성 후에 체크포인트 저장 등 추가 작업을 수행할 수 있습니다.
             String savepoint = "savePoint" + locationId;
-            savePoint(new CheckPointData(locationId, savepoint, location.getLongitude(), location.getLatitude(), currentTime));
+            savePoint(new CheckPointData(locationId, savepoint, location.getLongitude(), location.getLatitude()));
             locationId++;
 
             // 마커 생성 시간을 저장
